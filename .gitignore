@@ -1,0 +1,4 @@
+# Project exclude paths
+/venv/
+/secrete_dir/
+/main.py/
