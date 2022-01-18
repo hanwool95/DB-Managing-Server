@@ -43,7 +43,7 @@ def make_csv_new_table(case_number, curs):
 
     file_name = "case_"+case_number
 
-    sql = """SELECT * FROM new_table ORDER BY DATE DESC;"""
+    sql = """SELECT * FROM new_table ORDER BY DATE ASC;"""
 
     curs.execute(sql)
 
