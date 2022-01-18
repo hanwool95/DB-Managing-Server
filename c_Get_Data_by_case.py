@@ -2,7 +2,7 @@ import pymysql
 
 import csv
 
-from secrete_dir.template import insert_code_new_dict, select_code_dict, concate_table, concate_csv_list
+from secrete_dir.template import insert_code_new_dict, select_code_dict, concate_table, concate_csv_list, code_list
 
 from secrete_dir.password import mysql_password
 
@@ -15,9 +15,9 @@ def get_case_and_make_table(number):
     case_number = "Case "+number
 
     making_new_concatenate_tables(curs)
-    add_data_to_new_table(case_number, curs, 'dx')
-    add_data_to_new_table(case_number, curs, 'lab')
-    add_data_to_new_table(case_number, curs, 'med')
+    add_data_to_new_table(case_number, curs,  code_list[0])
+    add_data_to_new_table(case_number, curs, code_list[1])
+    add_data_to_new_table(case_number, curs, code_list[2])
 
     make_csv_new_table(case_number, curs)
 
