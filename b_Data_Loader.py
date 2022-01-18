@@ -3,13 +3,7 @@ import csv
 
 from secrete_dir.password import mysql_password
 
-from secrete_dir.template import insert_code_dict, code_list
-
-float_dict = {
-    code_list[0]: [],
-    code_list[1]: [6],
-    code_list[2]: [7]
-}
+from secrete_dir.template import insert_code_dict, code_list, float_dict
 
 
 def Data_to_DB(code):
@@ -34,18 +28,13 @@ def Data_to_DB(code):
                     data = float(data)
             value_list.append(data)
         value_tuple = tuple(value_list)
-
         curs.execute(insert_code_dict[code], value_tuple)
-
-
-
 
     f.close()
     conn.close()
 
 if "__main__":
-    Data_to_DB(code_list[0])
-    Data_to_DB(code_list[1])
-    Data_to_DB(code_list[2])
+    for code in code_list:
+        Data_to_DB(code)
 
 
