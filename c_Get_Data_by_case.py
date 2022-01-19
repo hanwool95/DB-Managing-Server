@@ -41,9 +41,10 @@ def add_data_to_new_table(case_number, curs, data_style):
 
 def make_csv_new_table(case_number, curs):
 
-    file_name = "case_"+case_number
+    file_name = case_number
 
     sql = """SELECT * FROM new_table ORDER BY DATE ASC;"""
+    print(sql)
 
     curs.execute(sql)
 
@@ -58,8 +59,10 @@ def make_csv_new_table(case_number, curs):
         wr.writerow(data_list)
     f.close()
 
-    #Todo 정렬하여 개별 저장 만들고 아래 함수 옮겨야 함.
-    sql = """ DROP TABLE new_table"""
+    sql = """RENAME TABLE new_table TO """
+    sql += case_number.replace(" ", "")
+    sql += """;"""
+    print(sql)
     curs.execute(sql)
 
 
