@@ -41,11 +41,10 @@ def add_data_to_new_table(case_number, curs, data_style):
 
 def make_csv_new_table(case_number, curs):
 
-    file_name = case_number
+    file_name = case_number+".csv"
 
     sql = """SELECT * FROM new_table ORDER BY DATE ASC;"""
     print(sql)
-
     curs.execute(sql)
 
     res = curs.fetchall()
