@@ -1,7 +1,5 @@
 
 
-import csv
-
 from secrete_dir.db_info import host, user, mysql_password, db
 from db_manager.db_manager import DB_manager
 from secrete_dir.template import table_name_list
