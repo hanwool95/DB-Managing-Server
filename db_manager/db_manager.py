@@ -21,6 +21,9 @@ class DB_manager():
     sql = """"""
 
     def __init__(self, host, user, password, db_name):
+        self.access_db(host, user, password, db_name)
+
+    def access_db(self, host, user, password, db_name):
         self.conn = pymysql.connect(host=host, user=user, password=password, db=db_name, charset='utf8')
         self.curs = self.conn.cursor()
 
@@ -81,6 +84,21 @@ class DB_manager():
 
         self.rename_new_table_to_case_table(case_number)
 
+    def make_csv_by_table(self, table_name):
+        self.sql = select_all_from + table_name
+        self.execute_current_query()
+        self.res = self.curs.fetchall()
+
+        file_name = table_name + ".csv"
+        f = open(file_name, 'w', newline='')
+        wr = csv.writer(f)
+        wr.writerow(concate_csv_title)
+
+        for data in self.res:
+            data_list = list(x for i, x in enumerate(data) if i > 0)
+            wr.writerow(data_list)
+        f.close()
+
     def select_new_table_order_date(self):
         self.sql = select_all_from + """new_table """ + order_by_date_asc
         self.execute_current_query()
@@ -88,8 +106,4 @@ class DB_manager():
 
     def rename_new_table_to_case_table(self, case_number):
         self.sql = rename_table + """new_table """ + to + case_number.replace(" ", "") + query_over
-        self.execute_current_query()
-
-    def add_event_column(self, case_number):
-        self.sql = """ALTER TABLE """ + case_number + add_event
         self.execute_current_query()
