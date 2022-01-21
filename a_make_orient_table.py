@@ -1,11 +1,10 @@
 
-import pymysql
 
-from secrete_dir.password import mysql_password
+from secrete_dir.db_info import host, user, mysql_password, db
 from secrete_dir.template import orient_table
+from db_manager.db_manager import DB_manager
 
 if "__main__":
-    conn = pymysql.connect(host="127.0.0.1", user='root', password=mysql_password, db='test_db', charset='utf8')
-    curs = conn.cursor()
+    dbm = DB_manager(host, user, mysql_password, db)
     for case in orient_table:
-        curs.execute(case)
+        dbm.execute_text_query(case)

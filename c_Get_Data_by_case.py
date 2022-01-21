@@ -1,68 +1,21 @@
-import pymysql
 
-import csv
 
-from secrete_dir.template import insert_code_new_dict, select_code_dict, concate_table, concate_csv_list, code_list
-
+from secrete_dir.template import concate_table, table_name_list
+from secrete_dir.db_info import host, user, mysql_password, db
+from db_manager.db_manager import DB_manager
 from secrete_dir.password import mysql_password
 
 
 def get_case_and_make_table(number):
-
-    conn = pymysql.connect(host="127.0.0.1", user='root', password=mysql_password, db='test_db', charset='utf8')
-    curs = conn.cursor()
-
+    dbm = DB_manager(host, user, mysql_password, db)
     case_number = "Case "+number
+    dbm.execute_text_query(concate_table)
 
-    making_new_concatenate_tables(curs)
-    for code in code_list:
-        add_data_to_new_table(case_number, curs, code)
+    for table_name in table_name_list:
+        dbm.add_data_to_concate_table(case_number, table_name)
 
-    make_csv_new_table(case_number, curs)
+    dbm.make_case_csv_by_new_table(case_number)
 
-
-
-def making_new_concatenate_tables(curs):
-    sql_table = concate_table
-
-    curs.execute(sql_table)
-
-
-def add_data_to_new_table(case_number, curs, data_style):
-    sql = select_code_dict[data_style]
-    curs.execute(sql, (case_number))
-
-    res = curs.fetchall()
-
-    for data in res:
-        value_tuple = tuple(x for i, x in enumerate(data) if i > 0)
-        sql = insert_code_new_dict[data_style]
-        curs.execute(sql, value_tuple)
-
-def make_csv_new_table(case_number, curs):
-
-    file_name = case_number+".csv"
-
-    sql = """SELECT * FROM new_table ORDER BY DATE ASC;"""
-    print(sql)
-    curs.execute(sql)
-
-    res = curs.fetchall()
-
-    f = open(file_name, 'w', newline='')
-    wr = csv.writer(f)
-    wr.writerow(concate_csv_list)
-
-    for data in res:
-        data_list = list(x for i, x in enumerate(data) if i > 0)
-        wr.writerow(data_list)
-    f.close()
-
-    sql = """RENAME TABLE new_table TO """
-    sql += case_number.replace(" ", "")
-    sql += """;"""
-    print(sql)
-    curs.execute(sql)
 
 
 if "__main__":

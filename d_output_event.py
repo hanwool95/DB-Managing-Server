@@ -1,11 +1,44 @@
 import pymysql
 
-from secrete_dir.password import mysql_password
-from secrete_dir.template import select_case, concate_event_csv_list
+from secrete_dir.template import select_case, concate_event_csv_title
+from secrete_dir.db_info import host, user, mysql_password, db
+from db_manager.db_manager import DB_manager
 
 import csv
 
-class Condition_manager():
+# Todo 문서화, 이슈 뽑아내기 위해 필요한 정상치 반영. (Important rule)
+#  Event가 하나의 객체이고, (Event rule -> Event별 객체 생성)
+
+class Event():
+    d = None
+    l = None
+    m = None
+    p = None
+    important = {}
+
+    def is_important(self):
+        pass
+
+    def insert_all(self):
+        self.insert_d()
+        self.insert_l()
+        self.insert_m()
+        self.insert_p()
+
+    def insert_d(self):
+        pass
+
+    def insert_l(self):
+        pass
+
+    def insert_m(self):
+        pass
+
+    def insert_p(self):
+        pass
+
+
+class Event_rule_manager():
     case_number = ""
     curs = None
     res = None
@@ -26,7 +59,7 @@ class Condition_manager():
         self.get_data_to_res()
         f = open(self.case_number+"_event.csv", 'w', newline='')
         wr = csv.writer(f)
-        wr.writerow(concate_event_csv_list)
+        wr.writerow(concate_event_csv_title)
 
         for data in self.res:
             data_list = list(x for i, x in enumerate(data) if i > 0)
@@ -37,13 +70,13 @@ class Condition_manager():
         current_date = None
         for i, data in enumerate(self.res):
             if i == 0:
-                current_date = self.init_date(str(data[concate_event_csv_list.index('Date')+1]))
+                current_date = self.init_date(str(data[concate_event_csv_title.index('Date')+1]))
             id = data[0]
-            if data[concate_event_csv_list.index('dataType')+1] == "lab":
+            if data[concate_event_csv_title.index('dataType')+1] == "lab":
                 pass
             else:
-                if current_date != self.init_date(str(data[concate_event_csv_list.index('Date')+1])):
-                    current_date = self.init_date(str(data[concate_event_csv_list.index('Date')+1]))
+                if current_date != self.init_date(str(data[concate_event_csv_title.index('Date')+1])):
+                    current_date = self.init_date(str(data[concate_event_csv_title.index('Date')+1]))
                     self.event += 1
             sql = """UPDATE """ + self.case_number + """ SET Event=""" + str(self.event) + """ """
             sql += """WHERE id=""" + str(id) +""";"""
@@ -56,23 +89,15 @@ class Condition_manager():
 
 def calculate_event(number):
 
-    conn = pymysql.connect(host="127.0.0.1", user='root', password=mysql_password, db='test_db', charset='utf8')
-    curs = conn.cursor()
-
+    dbm = DB_manager(host, user, mysql_password, db)
     case_number = "Case" + number
+    dbm.add_event_column(case_number)
 
-    add_event_column(case_number, curs)
-
-    current_Case = Condition_manager(curs, case_number)
+    current_Case = Event_rule_manager(dbm.curs, case_number)
 
     current_Case.insert_event_condition()
     current_Case.data_to_csv()
 
-def add_event_column(case_number, curs):
-    sql = """ALTER TABLE """
-    sql += case_number
-    sql += """ ADD Event VARCHAR(5);"""
-    curs.execute(sql)
 
 
 
