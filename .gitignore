@@ -2,3 +2,5 @@
 /venv/
 /secrete_dir/
 /main.py/
+/dbApi/db.sqlite3
+/dbApi/csv_data
