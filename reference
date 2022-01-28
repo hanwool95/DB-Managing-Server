@@ -11,6 +11,8 @@ https://shanepark.tistory.com/41
 (실행) https://blog.devez.net/ko/149
 
 mysql -u root -p
+use test_db;
+show tables;
 
 
 접속하기
@@ -30,5 +32,8 @@ https://stackoverflow.com/questions/70382084/import-error-force-text-from-django
 
 
 
+rest api in django
+https://blog.nerdfactory.ai/2021/02/24/creating-an-api-&-collecting-html-elements-with-django-rest-framework.html
 
-
+outside my sql to django model
+https://hongjuzzang.github.io/howto/mysql_django_models/

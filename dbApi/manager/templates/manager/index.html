@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+{% csrf_token %}
+<form action="{% url 'manager:create_concate_db'%}" method="post">
+    CREATE concate_db<br>
+    <input type="text" id="create_number" name="number" style="width:1000px;">
+
+
+</form>
+
+</body>
+</html>
