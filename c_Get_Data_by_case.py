@@ -1,5 +1,3 @@
-
-
 from secrete_dir.template import concate_table, table_name_list
 from secrete_dir.db_info import host, user, mysql_password, db
 from db_manager.db_manager import DB_manager
@@ -17,8 +15,6 @@ def get_case_and_make_table(number):
     dbm.make_case_csv_by_new_table(case_number)
 
 
-
-if "__main__":
+if __name__ == "__main__":
     number = input('원하는 Case 숫자를 입력해주세요')
     get_case_and_make_table(number)
-

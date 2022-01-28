@@ -2,7 +2,8 @@
 
 import pymysql, csv
 
-from secrete_dir.template import insert_code_dict, table_name_list, select_code_dict, insert_code_new_dict, concate_csv_title
+from secrete_dir.template import insert_code_dict, table_name_list, select_code_dict, insert_code_new_dict, \
+    concate_csv_title, important_csv_title
 
 from .db_template import *
 
@@ -89,14 +90,14 @@ class DB_manager():
         file_name = table_name + ".csv"
         f = open(file_name, 'w', newline='')
         wr = csv.writer(f)
-        self.sql = """ SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME =(%s);"""
-        self.curs.execute(self.sql, (table_name))
-        self.res = self.curs.fetchall()
-        column_name_list = []
-        for i, data in enumerate(self.res):
-            if i != 0:
-                column_name_list.append(data[0])
-        wr.writerow(column_name_list)
+        # self.sql = """ SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME =(%s);"""
+        # self.curs.execute(self.sql, (table_name))
+        # self.res = self.curs.fetchall()
+        # column_name_list = []
+        # for i, data in enumerate(self.res):
+        #     if i != 0:
+        #         column_name_list.append(data[0])
+        wr.writerow(important_csv_title)
 
         self.sql = select_all_from + table_name
         self.execute_current_query()

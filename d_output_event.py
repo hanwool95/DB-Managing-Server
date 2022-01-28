@@ -14,6 +14,6 @@ def calculate_event(number):
     current_Case.data_to_csv()
 
 
-if "__main__":
+if __name__ == "__main__":
     number = input("원하시는 번호를 눌러주세요")
     calculate_event(number)

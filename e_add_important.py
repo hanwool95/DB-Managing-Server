@@ -12,6 +12,6 @@ def add_important(number):
     current_Case.make_csv_by_table(current_Case.event_table_name)
 
 
-if "__main__":
+if __name__ == "__main__":
     number = input("원하시는 번호를 눌러주세요")
     add_important(number)

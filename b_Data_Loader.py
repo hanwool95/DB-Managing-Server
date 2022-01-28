@@ -11,7 +11,8 @@ def Data_to_DB(table_name):
     dbm.conn.commit()
     dbm.insert_csv_data_to_table('secrete_dir/' + table_name + '.csv', table_name)
 
-if "__main__":
+
+if __name__ == "__main__":
     for code in table_name_list:
         Data_to_DB(code)
 
