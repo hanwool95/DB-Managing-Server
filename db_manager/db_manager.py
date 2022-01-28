@@ -85,14 +85,22 @@ class DB_manager():
         self.rename_new_table_to_case_table(case_number)
 
     def make_csv_by_table(self, table_name):
-        self.sql = select_all_from + table_name
-        self.execute_current_query()
-        self.res = self.curs.fetchall()
 
         file_name = table_name + ".csv"
         f = open(file_name, 'w', newline='')
         wr = csv.writer(f)
-        wr.writerow(concate_csv_title)
+        self.sql = """ SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME =(%s);"""
+        self.curs.execute(self.sql, (table_name))
+        self.res = self.curs.fetchall()
+        column_name_list = []
+        for i, data in enumerate(self.res):
+            if i != 0:
+                column_name_list.append(data[0])
+        wr.writerow(column_name_list)
+
+        self.sql = select_all_from + table_name
+        self.execute_current_query()
+        self.res = self.curs.fetchall()
 
         for data in self.res:
             data_list = list(x for i, x in enumerate(data) if i > 0)

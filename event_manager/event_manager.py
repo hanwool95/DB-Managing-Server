@@ -68,20 +68,30 @@ class Event_rule_manager(DB_manager):
         self.execute_current_query()
         self.res = self.curs.fetchall()
 
+    def select_all_data_byDate_to_res(self):
+        self.sql = select_all_from + self.case_number + " " + order_by_date_asc
+        self.execute_current_query()
+        self.res = self.curs.fetchall()
+
     def insert_important_event(self):
-        self.select_all_data_to_res()
+        self.select_all_data_byDate_to_res()
 
         event_num = 0
 
         cur_event = Event(event_num)
         for data in self.res:
-            if data[Event_index] != str(event_num):
-                cur_event.event_date = data[Date_index]
+            if str(data[Event_index]) != str(event_num):
+                print(data[Event_index])
+                print(event_num)
+                print(".......")
                 cur_event.is_important()
                 self.event_list.append(cur_event)
-
-                event_num += 1
+                event_num = data[Event_index]
                 cur_event = Event(event_num)
+            else:
+                print(data[Event_index])
+                print(event_num)
+                cur_event.event_date = data[Date_index]
 
             if data[Type_index] == table_name_list[1]:
                 if data[l_name_index] in l_condition_dict.keys():
