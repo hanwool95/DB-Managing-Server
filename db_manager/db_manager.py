@@ -16,12 +16,13 @@ float_dict = {
 
 
 class DB_manager():
-    conn = None
-    curs = None
-    res = None
-    sql = """"""
 
     def __init__(self, host, user, password, db_name):
+        self.conn = None
+        self.curs = None
+        self.res = None
+        self.sql = """"""
+
         self.access_db(host, user, password, db_name)
 
     def access_db(self, host, user, password, db_name):
