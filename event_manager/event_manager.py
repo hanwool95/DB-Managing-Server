@@ -111,8 +111,7 @@ class Event_rule_manager(DB_manager):
                     cur_event.l_name.append(data[l_name_index])
                     cur_event.l_result.append(data[l_result_index])
             elif data[Type_index] == table_name_list[2]:
-                if data[m_name_index] in m_condition_dict.keys():
-                    cur_event.m.append(data[m_name_index] + " " + str(data[m_result_index]))
+                cur_event.m.append(data[m_name_index] + " " + str(data[m_result_index]))
         cur_event.is_important()
         self.event_list.append(cur_event)
 
@@ -149,7 +148,7 @@ class Event():
             local_important = False
             for i, name in enumerate(self.l_name):
                 if l_condition_dict[name][0] == "str":
-                    if l_condition_dict[name][1] in self.l_result[i]:
+                    if l_condition_dict[name][1] not in self.l_result[i]:
                         self.important = True
                         local_important = True
                 elif l_condition_dict[name][0] == "float":

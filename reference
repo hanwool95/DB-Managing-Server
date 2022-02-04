@@ -14,6 +14,8 @@ mysql -u root -p
 use test_db;
 show tables;
 
+drop tables Case1, Case2, Case3, Case4, Case5, Case6, Case7, Case8, Case9, Case10, Case11, Case12, Case13, Case14, Case15, Case16, Case1_important, Case2_important, Case3_important, Case4_important, Case5_important, Case6_important, Case7_important, Case8_important, Case9_important, Case10_important, Case11_important, Case12_important, Case13_important, Case14_important, Case15_important, Case16_important;
+
 
 접속하기
 https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=devsimin&logNo=221436548123
