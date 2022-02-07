@@ -16,6 +16,7 @@ if __name__ == "__main__":
     start = 1
     for i in range(27):
         number = str(start+i)
+        print(number)
         get_case_and_make_table(number)
         calculate_event(number)
         add_important(number)

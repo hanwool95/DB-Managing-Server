@@ -1,6 +1,6 @@
 
 
-import csv, copy
+import csv
 from secrete_dir.template import *
 from db_manager.db_template import *
 from db_manager.db_manager import DB_manager
@@ -101,8 +101,8 @@ class Event_rule_manager(DB_manager):
                 cur_event.is_important()
                 self.event_list.append(cur_event)
                 event_num = data[Event_index]
-                prev_m = copy.deepcopy(cur_event.m)
-                cur_event = Event(event_num, prev_m)
+                #prev_m = copy.deepcopy(cur_event.m)
+                cur_event = Event(event_num, cur_event)
             else:
                 cur_event.event_date = data[Date_index]
 
@@ -130,10 +130,18 @@ class Event_rule_manager(DB_manager):
 
 
 class Event():
-    def __init__(self, num, prev_m=None):
+    def __init__(self, num, prev_Event=None):
         self.event_date = None
         self.event_num = num
-        self.prev_m = prev_m
+        self.prev_Event = prev_Event
+        self.prev_m = []
+        if self.prev_Event:
+            while self.prev_Event.m == []:
+                self.prev_Event = self.prev_Event.prev_Event
+                if not self.prev_Event:
+                    break
+            if self.prev_Event:
+                self.prev_m = self.prev_Event.m
         self.d = None
         self.l_name = []
         self.l_result = []
@@ -148,7 +156,7 @@ class Event():
             local_important = False
             for i, name in enumerate(self.l_name):
                 if l_condition_dict[name][0] == "str":
-                    if l_condition_dict[name][1] not in self.l_result[i]:
+                    if l_condition_dict[name][1] not in self.l_result[i].lower():
                         self.important = True
                         local_important = True
                 elif l_condition_dict[name][0] == "float":
