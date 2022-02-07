@@ -14,7 +14,7 @@ if __name__ == "__main__":
     # time.sleep(1)
     # add_important(number)
     start = 1
-    for i in range(16):
+    for i in range(27):
         number = str(start+i)
         get_case_and_make_table(number)
         calculate_event(number)

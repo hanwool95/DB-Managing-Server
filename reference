@@ -14,7 +14,7 @@ mysql -u root -p
 use test_db;
 show tables;
 
-drop tables Case1, Case2, Case3, Case4, Case5, Case6, Case7, Case8, Case9, Case10, Case11, Case12, Case13, Case14, Case15, Case16, Case1_important, Case2_important, Case3_important, Case4_important, Case5_important, Case6_important, Case7_important, Case8_important, Case9_important, Case10_important, Case11_important, Case12_important, Case13_important, Case14_important, Case15_important, Case16_important;
+drop tables Case1, Case2, Case3, Case4, Case5, Case6, Case7, Case8, Case9, Case10, Case11, Case12, Case13, Case14, Case15, Case16, Case17, Case18, Case19, Case20, Case21, Case22, Case23, Case24, Case25, Case26, Case27, Case1_important, Case2_important, Case3_important, Case4_important, Case5_important, Case6_important, Case7_important, Case8_important, Case9_important, Case10_important, Case11_important, Case12_important, Case13_important, Case14_important, Case15_important, Case16_important, Case17_important, Case18_important, Case19_important, Case20_important, Case21_important, Case22_important, Case23_important, Case24_important, Case25_important, Case26_important, Case27_important;
 
 
 접속하기

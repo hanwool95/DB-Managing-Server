@@ -15,5 +15,3 @@ def Data_to_DB(table_name):
 if __name__ == "__main__":
     for code in table_name_list:
         Data_to_DB(code)
-
-

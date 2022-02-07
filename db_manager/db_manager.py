@@ -1,5 +1,3 @@
-
-
 import pymysql, csv
 
 from secrete_dir.template import insert_code_dict, table_name_list, select_code_dict, insert_code_new_dict, \
@@ -11,12 +9,12 @@ float_dict = {
     table_name_list[0]: [],
     table_name_list[1]: [6],
     table_name_list[2]: [7],
-    table_name_list[3]: []
+    table_name_list[3]: [],
+    table_name_list[4]: []
 }
 
 
 class DB_manager():
-
     def __init__(self, host, user, password, db_name):
         self.conn = None
         self.curs = None
@@ -49,10 +47,10 @@ class DB_manager():
             value_list = []
             for i, value in enumerate(row):
                 data = value
-                if i in float_list:
-                    if data == '':
-                        data = None
-                    else:
+                if data == '':
+                    data = None
+                else:
+                    if i in float_list:
                         data = float(data)
                 value_list.append(data)
             value_tuple = tuple(value_list)
