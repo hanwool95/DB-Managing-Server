@@ -97,14 +97,13 @@ class Event_rule_manager(DB_manager):
 
         cur_event = Event(event_num)
         for data in self.res:
+            cur_event.event_date = data[Date_index]
             if str(data[Event_index]) != str(event_num):
                 cur_event.is_important()
                 self.event_list.append(cur_event)
                 event_num = data[Event_index]
                 #prev_m = copy.deepcopy(cur_event.m)
                 cur_event = Event(event_num, cur_event)
-            else:
-                cur_event.event_date = data[Date_index]
 
             if data[Type_index] == table_name_list[1]:
                 if data[l_name_index] in l_condition_dict.keys():
