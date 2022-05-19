@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "graphene_django",
     "gql.apps.GqlConfig",
     "rest_framework",
-    "manager.apps.Manager"
+    "manager.apps.ManagerConfig"
 ]
 
 MIDDLEWARE = [
