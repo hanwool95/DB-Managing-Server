@@ -39,3 +39,6 @@ https://blog.nerdfactory.ai/2021/02/24/creating-an-api-&-collecting-html-element
 
 outside my sql to django model
 https://hongjuzzang.github.io/howto/mysql_django_models/
+
+model setting 이후
+python manage.py inspectdb > manager/models.py
