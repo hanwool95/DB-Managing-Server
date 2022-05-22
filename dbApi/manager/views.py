@@ -1,10 +1,18 @@
 
-
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import DxSerializer
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 
-# Todo need to set models
-from .models import *
+from .models import Dx
+
+class DxAPI(APIView):
+    def get(self, request):
+        queryset = Dx.objects.all()
+        print("get: ", queryset)
+        serializer = DxSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 def index(request):

@@ -9,15 +9,15 @@ from django.db import models
 
 
 class Dx(models.Model):
-    number = models.TextField(db_column='환자번호A', max_length=10, blank=True, null=True)
-    sex = models.TextField(db_column='성별', max_length=2, blank=True, null=True)
-    birth = models.TextField(db_column='생년월일', max_length=12, blank=True, null=True)
-    department = models.TextField(db_column='수진진료과', max_length=20, blank=True, null=True)
-    date = models.DateField(db_column='진단일자', blank=True, null=True)
-    first_date = models.DateField(db_column='첫진단일자', blank=True, null=True)
-    diagnostic_code = models.TextField(db_column='진단코드', max_length=10, blank=True, null=True)
-    diagnostic_name = models.TextField(db_column='진단명', max_length=50, blank=True, null=True)
-    icd10_code = models.TextField(db_column='ICD10코드', max_length=10, blank=True, null=True)
+    number = models.TextField(max_length=10, blank=True, null=True)
+    sex = models.TextField(max_length=2, blank=True, null=True)
+    birth = models.TextField( max_length=12, blank=True, null=True)
+    department = models.TextField(max_length=20, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
+    first_date = models.DateField(blank=True, null=True)
+    diagnostic_code = models.TextField(max_length=10, blank=True, null=True)
+    diagnostic_name = models.TextField(max_length=50, blank=True, null=True)
+    icd10_code = models.TextField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -25,13 +25,13 @@ class Dx(models.Model):
 
 
 class Fx(models.Model):
-    number = models.TextField(db_column='환자번호A', max_length=10, blank=True, null=True)
-    sex = models.TextField(db_column='성별', max_length=2, blank=True, null=True)
-    birth = models.TextField(db_column='생년월일', max_length=12, blank=True, null=True)
-    department = models.TextField(db_column='수진진료과', max_length=20, blank=True, null=True)
-    date = models.DateField(db_column="서식작성일", blank=True, null=True)
-    format_name = models.TextField(db_column="서식명", max_length=100, blank=True, null=True)
-    format_content = models.TextField(db_column="서식내용", max_length=1000, blank=True, null=True)
+    number = models.TextField(max_length=10, blank=True, null=True)
+    sex = models.TextField(max_length=2, blank=True, null=True)
+    birth = models.TextField(max_length=12, blank=True, null=True)
+    department = models.TextField(max_length=20, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
+    format_name = models.TextField(max_length=100, blank=True, null=True)
+    format_content = models.TextField(max_length=1000, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -39,15 +39,15 @@ class Fx(models.Model):
 
 
 class Lab(models.Model):
-    number = models.TextField(db_column='환자번호A', max_length=10, blank=True, null=True)
-    sex = models.TextField(db_column='성별', max_length=2, blank=True, null=True)
-    birth = models.TextField(db_column='생년월일', max_length=12, blank=True, null=True)
-    department = models.TextField(db_column='수진진료과', max_length=20, blank=True, null=True)
-    date = models.DateTimeField(db_column="검사시행일", blank=True, null=True)
-    test_name = models.TextField(db_column="검사명", max_length=5000, blank=True, null=True)
-    result_numerical = models.FloatField(db_column="검사결과수치값", blank=True, null=True)
-    result_negpos = models.TextField(db_column="검사결과음성양성", max_length=5, blank=True, null=True)
-    result_total = models.TextField(db_column="검사결과", max_length=5000, blank=True, null=True)
+    number = models.TextField(max_length=10, blank=True, null=True)
+    sex = models.TextField(max_length=2, blank=True, null=True)
+    birth = models.TextField(max_length=12, blank=True, null=True)
+    department = models.TextField(max_length=20, blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
+    test_name = models.TextField(max_length=5000, blank=True, null=True)
+    result_numerical = models.FloatField(blank=True, null=True)
+    result_negpos = models.TextField(max_length=5, blank=True, null=True)
+    result_total = models.TextField(max_length=5000, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -55,14 +55,14 @@ class Lab(models.Model):
 
 
 class Med(models.Model):
-    number = models.TextField(db_column='환자번호A', max_length=10, blank=True, null=True)
-    sex = models.TextField(db_column='성별', max_length=2, blank=True, null=True)
-    birth = models.TextField(db_column='생년월일', max_length=12, blank=True, null=True)
-    department = models.TextField(db_column='수진진료과', max_length=20, blank=True, null=True)
-    date = models.DateField(db_column="약품처방일", blank=True, null=True)
-    name_ingredient = models.TextField(db_column="약품명성분명", max_length=5000, blank=True, null=True)
-    name_normal = models.TextField(db_column="약품명일반명", max_length=5000, blank=True, null=True)
-    prescription = models.IntegerField(db_column='1일처방량', blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number = models.TextField(max_length=10, blank=True, null=True)
+    sex = models.TextField(max_length=2, blank=True, null=True)
+    birth = models.TextField(max_length=12, blank=True, null=True)
+    department = models.TextField(max_length=20, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
+    name_ingredient = models.TextField(max_length=5000, blank=True, null=True)
+    name_normal = models.TextField(max_length=5000, blank=True, null=True)
+    prescription = models.IntegerField(blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
 
     class Meta:
         managed = False
@@ -70,12 +70,12 @@ class Med(models.Model):
 
 
 class Px(models.Model):
-    number = models.TextField(db_column='환자번호A', max_length=10, blank=True, null=True)
-    sex = models.TextField(db_column='성별', max_length=2, blank=True, null=True)
-    birth = models.TextField(db_column='생년월일', max_length=12, blank=True, null=True)
-    date = models.DateField(db_column="서식작성일", blank=True, null=True)
-    format_name = models.TextField(db_column="서식명", max_length=100, blank=True, null=True)
-    format_content = models.TextField(db_column="서식내용", max_length=1000, blank=True, null=True)
+    number = models.TextField(max_length=10, blank=True, null=True)
+    sex = models.TextField(max_length=2, blank=True, null=True)
+    birth = models.TextField(max_length=12, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
+    format_name = models.TextField(max_length=100, blank=True, null=True)
+    format_content = models.TextField(max_length=1000, blank=True, null=True)
 
     class Meta:
         managed = False
