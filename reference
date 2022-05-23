@@ -43,3 +43,7 @@ https://hongjuzzang.github.io/howto/mysql_django_models/
 
 model setting 이후
 python manage.py inspectdb > manager/models.py
+
+
+rest api 설계 예시 overflow
+https://stackoverflow.com/questions/21148039/how-to-make-a-patch-request-using-django-rest-framework

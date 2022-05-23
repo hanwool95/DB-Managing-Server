@@ -20,6 +20,7 @@ class Dx(models.Model):
     icd10_code = models.TextField(max_length=10, blank=True, null=True)
 
 
+
 class Fx(models.Model):
     number = models.TextField(max_length=10, blank=True, null=True)
     sex = models.TextField(max_length=2, blank=True, null=True)
