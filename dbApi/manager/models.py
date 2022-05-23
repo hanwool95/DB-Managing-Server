@@ -19,10 +19,6 @@ class Dx(models.Model):
     diagnostic_name = models.TextField(max_length=50, blank=True, null=True)
     icd10_code = models.TextField(max_length=10, blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'dx'
-
 
 class Fx(models.Model):
     number = models.TextField(max_length=10, blank=True, null=True)
@@ -32,10 +28,6 @@ class Fx(models.Model):
     date = models.DateField(blank=True, null=True)
     format_name = models.TextField(max_length=100, blank=True, null=True)
     format_content = models.TextField(max_length=1000, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'fx'
 
 
 class Lab(models.Model):
@@ -49,9 +41,6 @@ class Lab(models.Model):
     result_negpos = models.TextField(max_length=5, blank=True, null=True)
     result_total = models.TextField(max_length=5000, blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'lab'
 
 
 class Med(models.Model):
@@ -64,10 +53,6 @@ class Med(models.Model):
     name_normal = models.TextField(max_length=5000, blank=True, null=True)
     prescription = models.IntegerField(blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
 
-    class Meta:
-        managed = False
-        db_table = 'med'
-
 
 class Px(models.Model):
     number = models.TextField(max_length=10, blank=True, null=True)
@@ -77,6 +62,3 @@ class Px(models.Model):
     format_name = models.TextField(max_length=100, blank=True, null=True)
     format_content = models.TextField(max_length=1000, blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'px'
