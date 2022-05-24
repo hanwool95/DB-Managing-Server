@@ -22,7 +22,7 @@ class DxAPI(APIView):
             return Response(request.data, status=status.HTTP_201_CREATED)
         return Response("wrong parameter", status=status.HTTP_400_BAD_REQUEST)
 
-class DxSeperateAPI(APIView):
+class DxNumberingAPI(APIView):
     def get(self, request, number):
         queryset = Dx.objects.get(id=number)
         print("get: ", queryset)
