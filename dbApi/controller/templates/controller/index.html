@@ -6,5 +6,19 @@
 </head>
 <body>
 this is controller index
+<br>
+    {% csrf_token %}
+    <button type="button" onclick="location.href='./upload' ">업로드하기</button>
+
+
+<br><br>
+DB로 전송하기<br>
+{% for file_name in static_files%}
+        <form action="{% url 'controller:insert' file_name %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value={{file_name}}>
+        </form>
+{% endfor %}
+
 </body>
 </html>
