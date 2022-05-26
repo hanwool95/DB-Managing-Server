@@ -11,10 +11,9 @@ def index(request):
 def upload_file(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
-        print(request.FILES)
         if form.is_valid():
             File_Handler(request.FILES['file'])
-            return HttpResponseRedirect('/index.html')
+            return HttpResponseRedirect('/controller')
         else:
             print("un valid")
     else:
