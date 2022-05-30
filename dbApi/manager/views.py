@@ -2,10 +2,10 @@
 from rest_framework.request import Request
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import RetrieveModelMixin, ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
-from .serializers import DxSerializer, MedSerializer, LabSerializer, PxSerializer
+from .serializers import DxSerializer, MedSerializer, LabSerializer, PxSerializer, FxSerializer
 from django.shortcuts import render
 
-from .models import Dx, Lab, Med, Px
+from .models import Dx, Lab, Med, Px, Fx
 
 class DxAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
     queryset = Dx.objects.all()
@@ -89,6 +89,29 @@ class PxAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
 class PxDetailAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
     queryset = Px.objects.all()
     serializer_class = PxSerializer
+
+    def get(self, request: Request, pk: int):
+        return self.retrieve(request, partial=True)
+
+    def patch(self, request: Request, pk: int):
+        return self.update(request, partial=True)
+
+    def delete(self, request: Request, pk: int):
+        return self.destroy(request)
+
+class FxAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
+    queryset = Fx.objects.all()
+    serializer_class = FxSerializer
+
+    def get(self, request: Request):
+        return self.list(request)
+
+    def post(self, request):
+        return self.create(request)
+
+class FxDetailAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
+    queryset = Fx.objects.all()
+    serializer_class = FxSerializer
 
     def get(self, request: Request, pk: int):
         return self.retrieve(request, partial=True)

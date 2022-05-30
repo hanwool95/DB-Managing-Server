@@ -14,4 +14,6 @@ urlpatterns = [
     path('med/<int:pk>', views.MedDetailAPI.as_view()),
     path('px/', views.PxAPI.as_view()),
     path('px/<int:pk>', views.PxDetailAPI.as_view()),
+    path('fx/', views.FxAPI.as_view()),
+    path('fx/<int:pk>', views.FxDetailAPI.as_view()),
 ]

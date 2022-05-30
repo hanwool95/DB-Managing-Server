@@ -48,6 +48,8 @@ class DbHandler:
             return Lab
         elif self.__filename == 'm.csv':
             return Med
+        elif self.__filename == "f.csv":
+            return Fx
         else:
             return Px
 
@@ -58,24 +60,69 @@ class DbHandler:
             return self.__insert_lab_line(db_object, line)
         elif self.__filename == 'm.csv':
             return self.__insert_med_line(db_object, line)
+        elif self.__filename == 'f.csv':
+            return self.__insert_fx_line(db_object, line)
         else:
             return self.__insert_px_line(db_object, line)
 
     def __insert_dx_line(self, dx: Dx, line: list):
-        dx(number=line[0], sex=line[1], birth=line[2], department=line[3], date=line[4], first_date=line[5],
-                diagnostic_code=line[6], diagnostic_name=line[7], icd10_code=line[8]).save()
+        dx(
+            number=line[0],
+            sex=line[1],
+            birth=line[2],
+            department=line[3],
+            date=line[4],
+            first_date=line[5],
+            diagnostic_code=line[6],
+            diagnostic_name=line[7],
+            icd10_code=line[8]
+        ).save()
 
     def __insert_lab_line(self, lab: Lab, line: list):
-        lab(number=line[0], sex=line[1], birth=line[2], department=line[3], date=line[4], test_name=line[5],
-                result_numerical=float(line[6]) if line[6] else None, result_negpos=line[7], result_total=line[8]).save()
+        lab(
+            number=line[0],
+            sex=line[1],
+            birth=line[2],
+            department=line[3],
+            date=line[4],
+            test_name=line[5],
+            result_numerical=float(line[6]) if line[6] else None,
+            result_negpos=line[7],
+            result_total=line[8]
+        ).save()
 
     def __insert_med_line(self, med: Med, line: list):
         print(line)
-        med(number=line[0], sex=line[1], birth=line[2], department=line[3], date=line[4], name_ingredient=line[5],
-                name_normal=line[6], prescription=line[7] if line[7] else None).save()
-
+        med(
+            number=line[0],
+            sex=line[1],
+            birth=line[2],
+            department=line[3],
+            date=line[4],
+            name_ingredient=line[5],
+            name_normal=line[6],
+            prescription=line[7] if line[7] else None
+        ).save()
 
     def __insert_px_line(self, px: Px, line: list):
-        px(number=line[0], sex=line[1], birth=line[2], date=line[3], format_name=line[4], format_content=line[5]).save()
+        px(
+            number=line[0],
+            sex=line[1],
+            birth=line[2],
+            date=line[3],
+            format_name=line[4],
+            format_content=line[5]
+        ).save()
+
+    def __insert_fx_line(self, fx: Fx, line: list):
+        fx(
+            number=line[0],
+            sex=line[1],
+            birth=line[2],
+            department=line[3],
+            date=line[4],
+            format_name=line[5],
+            format_content=line[6]
+        ).save()
 
 
