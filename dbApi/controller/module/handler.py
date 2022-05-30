@@ -20,7 +20,7 @@ class FileHandler:
                 destination.write(chunk)
 
 
-class DbHandler():
+class DbHandler:
 
     def __init__(self):
         self.__filename = ""
@@ -28,11 +28,16 @@ class DbHandler():
     def select_file_name(self, file_name: str):
         self.__filename = file_name
 
+    def __initialize_db(self, db: object):
+        records = db.objects.all()
+        records.delete()
+
     def insert_db(self):
         with open('static/'+self.__filename, 'r') as f:
             r = csv.reader(f)
             next(r)
             db_object = self.__select_db_object()
+            self.__initialize_db(db_object)
             for line in r:
                 self.__insert_line(db_object, line)
 
