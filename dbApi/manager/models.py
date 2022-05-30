@@ -13,8 +13,8 @@ class Dx(models.Model):
     sex = models.TextField(max_length=2, blank=True, null=True)
     birth = models.TextField( max_length=12, blank=True, null=True)
     department = models.TextField(max_length=20, blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
-    first_date = models.DateField(blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
+    first_date = models.DateTimeField(blank=True, null=True)
     diagnostic_code = models.TextField(max_length=10, blank=True, null=True)
     diagnostic_name = models.TextField(max_length=50, blank=True, null=True)
     icd10_code = models.TextField(max_length=10, blank=True, null=True)
@@ -26,7 +26,7 @@ class Fx(models.Model):
     sex = models.TextField(max_length=2, blank=True, null=True)
     birth = models.TextField(max_length=12, blank=True, null=True)
     department = models.TextField(max_length=20, blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
     format_name = models.TextField(max_length=100, blank=True, null=True)
     format_content = models.TextField(max_length=1000, blank=True, null=True)
 
@@ -49,17 +49,17 @@ class Med(models.Model):
     sex = models.TextField(max_length=2, blank=True, null=True)
     birth = models.TextField(max_length=12, blank=True, null=True)
     department = models.TextField(max_length=20, blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
     name_ingredient = models.TextField(max_length=5000, blank=True, null=True)
     name_normal = models.TextField(max_length=5000, blank=True, null=True)
-    prescription = models.IntegerField(blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    prescription = models.FloatField(blank=True, null=True)
 
 
 class Px(models.Model):
     number = models.TextField(max_length=10, blank=True, null=True)
     sex = models.TextField(max_length=2, blank=True, null=True)
     birth = models.TextField(max_length=12, blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
     format_name = models.TextField(max_length=100, blank=True, null=True)
     format_content = models.TextField(max_length=1000, blank=True, null=True)
 
