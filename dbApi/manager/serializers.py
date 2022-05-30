@@ -5,4 +5,3 @@ class DxSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dx
         fields = '__all__'
-

@@ -7,5 +7,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('concate_db/<int:number>', views.concate_db, name='concate_db'),
     path('dx/', views.DxAPI.as_view()),
-    path('dx/<int:number>', views.DxNumberingAPI.as_view())
+    path('dx/<int:pk>', views.DxDetailAPI.as_view())
 ]
