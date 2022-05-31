@@ -4,7 +4,8 @@ from manager.models import *
 import sys
 mod = sys.modules[__name__]
 
-class FileHandler:
+
+class File_Handler:
     def __init__(self):
         self.__filename = ""
 
@@ -20,7 +21,7 @@ class FileHandler:
                 destination.write(chunk)
 
 
-class DbHandler:
+class Db_Handler:
 
     def __init__(self):
         self.__filename = ""
@@ -28,7 +29,8 @@ class DbHandler:
     def select_file_name(self, file_name: str):
         self.__filename = file_name
 
-    def __initialize_db(self, db: object):
+    @staticmethod
+    def __initialize_db(db: object):
         records = db.objects.all()
         records.delete()
 
@@ -65,7 +67,8 @@ class DbHandler:
         else:
             return self.__insert_px_line(db_object, line)
 
-    def __insert_dx_line(self, dx: Dx, line: list):
+    @staticmethod
+    def __insert_dx_line(dx: Dx, line: list):
         dx(
             number=line[0],
             sex=line[1],
@@ -78,7 +81,8 @@ class DbHandler:
             icd10_code=line[8]
         ).save()
 
-    def __insert_lab_line(self, lab: Lab, line: list):
+    @staticmethod
+    def __insert_lab_line(lab: Lab, line: list):
         lab(
             number=line[0],
             sex=line[1],
@@ -91,8 +95,8 @@ class DbHandler:
             result_total=line[8]
         ).save()
 
-    def __insert_med_line(self, med: Med, line: list):
-        print(line)
+    @staticmethod
+    def __insert_med_line(med: Med, line: list):
         med(
             number=line[0],
             sex=line[1],
@@ -104,7 +108,8 @@ class DbHandler:
             prescription=line[7] if line[7] else None
         ).save()
 
-    def __insert_px_line(self, px: Px, line: list):
+    @staticmethod
+    def __insert_px_line(px: Px, line: list):
         px(
             number=line[0],
             sex=line[1],
@@ -114,7 +119,8 @@ class DbHandler:
             format_content=line[5]
         ).save()
 
-    def __insert_fx_line(self, fx: Fx, line: list):
+    @staticmethod
+    def __insert_fx_line(fx: Fx, line: list):
         fx(
             number=line[0],
             sex=line[1],
