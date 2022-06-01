@@ -62,3 +62,10 @@ class Px(models.Model):
     date = models.DateTimeField(blank=True, null=True)
     format_name = models.TextField(max_length=100, blank=True, null=True)
     format_content = models.TextField(max_length=1000, blank=True, null=True)
+
+
+class Event(models.Model):
+    number = models.TextField(max_length=10, blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
+    event_num = models.IntegerField(default=-1)
+    important = models.BooleanField()
