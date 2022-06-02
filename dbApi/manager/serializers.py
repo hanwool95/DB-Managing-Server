@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Dx, Px, Med, Lab, Fx
+from .models import Dx, Px, Med, Lab, Fx, Event
 
 class DxSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,4 +24,9 @@ class PxSerializer(serializers.ModelSerializer):
 class FxSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fx
+        fields = '__all__'
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
         fields = '__all__'

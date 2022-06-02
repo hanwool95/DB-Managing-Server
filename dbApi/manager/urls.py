@@ -16,4 +16,6 @@ urlpatterns = [
     path('px/<int:pk>', views.PxDetailAPI.as_view()),
     path('fx/', views.FxAPI.as_view()),
     path('fx/<int:pk>', views.FxDetailAPI.as_view()),
+    path('event/', views.EventAPI.as_view()),
+    path('event/<int:number>', views.EventCaseAPI.as_view()),
 ]

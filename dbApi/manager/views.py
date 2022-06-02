@@ -2,10 +2,10 @@
 from rest_framework.request import Request
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import RetrieveModelMixin, ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
-from .serializers import DxSerializer, MedSerializer, LabSerializer, PxSerializer, FxSerializer
+from .serializers import DxSerializer, MedSerializer, LabSerializer, PxSerializer, FxSerializer, EventSerializer
 from django.shortcuts import render
 
-from .models import Dx, Lab, Med, Px, Fx
+from .models import Dx, Lab, Med, Px, Fx, Event
 
 class DxAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
     queryset = Dx.objects.all()
@@ -121,6 +121,39 @@ class FxDetailAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericA
 
     def delete(self, request: Request, pk: int):
         return self.destroy(request)
+
+
+class EventAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+    def get(self, request: Request):
+        return self.list(request)
+
+    def post(self, request):
+        return self.create(request)
+
+
+class EventCaseAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+    def get(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.list(request)
+
+    def post(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.create(request)
+
+    def delete(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.destroy(request)
+
+    def set_query_by_number(self, number: int):
+        case = 'Case ' + str(number)
+        self.queryset = Event.objects.filter(number=case)
+
 
 def index(request):
     return render(request, 'manager/index.html')
