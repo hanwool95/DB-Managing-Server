@@ -17,6 +17,26 @@ class DxAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
     def post(self, request):
         return self.create(request)
 
+class DxCaseAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
+    queryset = Dx.objects.all()
+    serializer_class = DxSerializer
+
+    def get(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.list(request)
+
+    def post(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.create(request)
+
+    def delete(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.destroy(request)
+
+    def set_query_by_number(self, number: int):
+        case = 'Case ' + str(number)
+        self.queryset = Dx.objects.filter(number=case)
+
 class DxDetailAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
     queryset = Dx.objects.all()
     serializer_class = DxSerializer
@@ -39,6 +59,26 @@ class LabAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
 
     def post(self, request):
         return self.create(request)
+
+class LabCaseAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
+    queryset = Lab.objects.all()
+    serializer_class = LabSerializer
+
+    def get(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.list(request)
+
+    def post(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.create(request)
+
+    def delete(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.destroy(request)
+
+    def set_query_by_number(self, number: int):
+        case = 'Case ' + str(number)
+        self.queryset = Lab.objects.filter(number=case)
 
 class LabDetailAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
     queryset = Lab.objects.all()
@@ -63,6 +103,26 @@ class MedAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
     def post(self, request):
         return self.create(request)
 
+class MedCaseAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
+    queryset = Med.objects.all()
+    serializer_class = MedSerializer
+
+    def get(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.list(request)
+
+    def post(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.create(request)
+
+    def delete(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.destroy(request)
+
+    def set_query_by_number(self, number: int):
+        case = 'Case ' + str(number)
+        self.queryset = Med.objects.filter(number=case)
+
 class MedDetailAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
     queryset = Med.objects.all()
     serializer_class = MedSerializer
@@ -86,6 +146,26 @@ class PxAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
     def post(self, request):
         return self.create(request)
 
+class PxCaseAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
+    queryset = Px.objects.all()
+    serializer_class = DxSerializer
+
+    def get(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.list(request)
+
+    def post(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.create(request)
+
+    def delete(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.destroy(request)
+
+    def set_query_by_number(self, number: int):
+        case = 'Case ' + str(number)
+        self.queryset = Px.objects.filter(number=case)
+
 class PxDetailAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
     queryset = Px.objects.all()
     serializer_class = PxSerializer
@@ -108,6 +188,26 @@ class FxAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
 
     def post(self, request):
         return self.create(request)
+
+class FxCaseAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
+    queryset = Fx.objects.all()
+    serializer_class = DxSerializer
+
+    def get(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.list(request)
+
+    def post(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.create(request)
+
+    def delete(self, request: Request, number: int):
+        self.set_query_by_number(number)
+        return self.destroy(request)
+
+    def set_query_by_number(self, number: int):
+        case = 'Case ' + str(number)
+        self.queryset = Fx.objects.filter(number=case)
 
 class FxDetailAPI(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericAPIView, DestroyModelMixin):
     queryset = Fx.objects.all()
