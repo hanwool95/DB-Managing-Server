@@ -19,6 +19,11 @@ DB로 전송하기<br>
             <input type="submit" value={{file_name}}>
         </form>
 {% endfor %}
+<br><br><br>
+<form action="{% url 'controller:event' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="event 제작하기">
+</form>
 
 </body>
 </html>

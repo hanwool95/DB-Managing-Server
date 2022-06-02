@@ -27,9 +27,8 @@ class Rule:
     def add_event_column(self, date: str, event_num: int, important: bool):
         self.event(number=self.__case_number, date=date, event_num=event_num, important=important).save()
 
-    @staticmethod
-    def init_event():
-        records = Event.objects.all()
+    def init_event(self):
+        records = Event.objects.filter(number=self.__case_number)
         records.delete()
 
     def __sort_queries_by_date(self):
@@ -45,7 +44,7 @@ class Rule:
 
             compared_date = self.init_date(query['date'])
 
-            if query['model'] is 'Lab' or query['model'] is 'px':
+            if query['model'] == 'Lab' or query['model'] == 'px':
                 if current_date != compared_date and not before_lab:
                     before_lab = True
                     current_date = compared_date
@@ -80,11 +79,11 @@ class Rule:
             information_queries = self.__get_all_queries_by_date(cur_date)
 
             for information_query in information_queries:
-                if information_query['model'] is 'Lab' and information_query['test_name'] in Condition.l_condition_dict.keys():
+                if information_query['model'] == 'Lab' and information_query['test_name'] in Condition.l_condition_dict.keys():
                     cur_event.l_name.append(information_query['test_name'])
                     cur_event.l_result.append(information_query['result_total'])
 
-                elif information_query['model'] is 'Med':
+                elif information_query['model'] == 'Med':
                     cur_event.m.append(information_query['name_ingredient'] + " " + str(information_query['prescription']))
 
             cur_event.is_important()

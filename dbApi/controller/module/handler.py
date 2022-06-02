@@ -4,6 +4,21 @@ from manager.models import *
 import sys
 mod = sys.modules[__name__]
 
+class Db:
+    dx = Dx
+    lab = Lab
+    med = Med
+    fx = Fx
+    px = Px
+
+    def get_unique_numbers(self) -> list:
+        all_dx = self.dx.objects.all()
+        number_dict = all_dx.values('number').distinct()
+        unique_numbers = []
+        for number_query in number_dict:
+            unique_numbers.append(number_query['number'])
+        return unique_numbers
+
 
 class File_Handler:
     def __init__(self):
