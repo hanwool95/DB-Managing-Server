@@ -11,8 +11,7 @@ Django, Rest framework, MySQL
 <br>
 
 ## Controller
-
-####DB 관리 인터페이스
+#### DB 관리 인터페이스
 
 HOST/controller
 
@@ -24,15 +23,18 @@ event 제작: 현재 업로드한 모델을 기준으로 Event Table 작성.
 
 ## Manager
 
-DB 관리 REST API<br><br>
-
+DB 관리 REST API
 ####HOST/manager/<db_name: str><br>
-target db 전체 정보 GET POST<br><br><br>
+target db 전체 정보 GET POST
 
-#####HOST/manager/<db_name: str>/<case_number: int>
-target db의 특정 Case에 대해서 GET POST DELETE<br><br><br>
+<br><br>
 
-#####HOST/manager/<db_name: str>/id/<id_number: int>
+####HOST/manager/<db_name: str>/<case_number: int><br>
+target db의 특정 Case에 대해서 GET POST DELETE
+
+<br><br>
+
+####HOST/manager/<db_name: str>/id/<id_number: int><br>
 target db의 특정 Index에 대해서 GET PATCH DELETE
 
 
