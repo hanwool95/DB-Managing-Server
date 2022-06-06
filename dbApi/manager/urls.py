@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 
-app_name = 'manager'
+app_name = 'api'
 urlpatterns = [
     path('', views.index, name='index'),
     path('concate_db/<int:number>', views.concate_db, name='concate_db'),
