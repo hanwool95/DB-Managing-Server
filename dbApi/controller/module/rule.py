@@ -37,6 +37,7 @@ class Rule:
 
     def insert_event_condition(self):
         current_date = None
+        dx_date = None
         event = 0
         before_lab = False
         for i, query in enumerate(self.queries):
@@ -44,12 +45,14 @@ class Rule:
                 current_date = self.init_date(query['date'])
 
             compared_date = self.init_date(query['date'])
+            if query['model'] == 'Dx':
+                dx_date = query['date']
 
-            if query['model'] == 'Lab' or query['model'] == 'px':
+            if query['model'] == 'Lab' or query['model'] == 'Px':
                 if current_date != compared_date and not before_lab:
                     before_lab = True
                     current_date = compared_date
-                    self.add_event_column(date=current_date, event_num=event, important=False)
+                    self.add_event_column(date=dx_date, event_num=event, important=False)
                     event += 1
             else:
                 if before_lab:
@@ -58,7 +61,7 @@ class Rule:
                 else:
                     if current_date != compared_date:
                         current_date = compared_date
-                        self.add_event_column(date=current_date, event_num=event, important=False)
+                        self.add_event_column(date=dx_date, event_num=event, important=False)
                         event += 1
 
     @staticmethod

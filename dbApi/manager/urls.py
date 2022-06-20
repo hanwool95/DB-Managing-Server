@@ -23,4 +23,5 @@ urlpatterns = [
     path('fx/id/<int:pk>', views.FxDetailAPI.as_view()),
     path('event/', views.EventAPI.as_view()),
     path('event/<int:number>', views.EventCaseAPI.as_view()),
+    path('total/<int:case_num>', views.total_data, name='total_data')
 ]
