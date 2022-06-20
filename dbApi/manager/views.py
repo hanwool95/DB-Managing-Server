@@ -283,9 +283,10 @@ def total_data(request, case_num: int):
     prev_date = events[0].date
     for event in events:
         date = event.date
-        result_dict['event_dates'].append(date)
+        if str(date) not in result_dict:
+            result_dict['event_dates'].append(str(date))
 
-        separate_dict = {'dx': [], 'lab': [], 'med': [], 'firsts': [], 'afters': []}
+        separate_dict = {'dx': [], 'lab': [], 'med': [], 'firsts': [], 'afters': [], 'important': event.important}
 
         filtered_dxs = dxs.filter(date=date)
         for dx in filtered_dxs:
@@ -322,8 +323,11 @@ def total_data(request, case_num: int):
         for med in filtered_meds:
             med_dict = {
                 'med_name_ingr': med.name_ingredient,
-                'name_normal': med.name_normal,
-                'prescrpition': med.prescription
+                'med_name_norm': med.name_normal,
+                'med_unit': med.prescript_unit,
+                'dosage': med.prescription_by_time,
+                'duration': med.prescription,
+
             }
             separate_dict['med'].append(med_dict)
 
@@ -334,6 +338,7 @@ def total_data(request, case_num: int):
         filtered_pxs = pxs.filter(date=date)
         for px in filtered_pxs:
             separate_dict['firsts'].append(px.format_content)
+
 
         prev_date = date
         result_dict['events'][str(date)] = separate_dict

@@ -120,7 +120,9 @@ class Db_Handler:
             date=line[4],
             name_ingredient=line[5],
             name_normal=line[6],
-            prescription=line[7] if line[7] else None
+            prescript_unit=line[7],
+            prescription=line[8] if line[8] else None,
+            prescription_by_time = line[9]
         ).save()
 
     @staticmethod
@@ -129,9 +131,10 @@ class Db_Handler:
             number=line[0],
             sex=line[1],
             birth=line[2],
-            date=line[3],
-            format_name=line[4],
-            format_content=line[5]
+            department=line[3],
+            date=line[4],
+            format_name=line[5],
+            format_content=line[6]
         ).save()
 
     @staticmethod

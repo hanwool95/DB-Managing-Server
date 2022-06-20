@@ -52,13 +52,15 @@ class Med(models.Model):
     date = models.DateTimeField(blank=True, null=True)
     name_ingredient = models.TextField(max_length=5000, blank=True, null=True)
     name_normal = models.TextField(max_length=5000, blank=True, null=True)
+    prescript_unit = models.TextField(max_length=8, blank=True, null=True)
     prescription = models.FloatField(blank=True, null=True)
-
+    prescription_by_time = models.TextField(max_length=10, blank=True, null=True)
 
 class Px(models.Model):
     number = models.TextField(max_length=10, blank=True, null=True)
     sex = models.TextField(max_length=2, blank=True, null=True)
     birth = models.TextField(max_length=12, blank=True, null=True)
+    department = models.TextField(max_length=20, blank=True, null=True)
     date = models.DateTimeField(blank=True, null=True)
     format_name = models.TextField(max_length=100, blank=True, null=True)
     format_content = models.TextField(max_length=1000, blank=True, null=True)

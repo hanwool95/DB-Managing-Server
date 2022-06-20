@@ -36,33 +36,46 @@ class Rule:
         self.queries.sort(key=lambda x: x['date'])
 
     def insert_event_condition(self):
-        current_date = None
-        dx_date = None
         event = 0
-        before_lab = False
-        for i, query in enumerate(self.queries):
-            if i == 0:
-                current_date = self.init_date(query['date'])
+        prev_dx_date = None
 
-            compared_date = self.init_date(query['date'])
+        for i, query in enumerate(self.queries):
             if query['model'] == 'Dx':
                 dx_date = query['date']
-
-            if query['model'] == 'Lab' or query['model'] == 'Px':
-                if current_date != compared_date and not before_lab:
-                    before_lab = True
-                    current_date = compared_date
+                if prev_dx_date != dx_date:
                     self.add_event_column(date=dx_date, event_num=event, important=False)
                     event += 1
-            else:
-                if before_lab:
-                    current_date = compared_date
-                    before_lab = False
-                else:
-                    if current_date != compared_date:
-                        current_date = compared_date
-                        self.add_event_column(date=dx_date, event_num=event, important=False)
-                        event += 1
+                prev_dx_date = dx_date
+
+        # current_date = self.init_date(self.queries[0]['date'])
+        # dx_date = None
+        # event = 0
+        # before_lab = False
+        # prev_dx_date = None
+        # for i, query in enumerate(self.queries):
+        #     compared_date = self.init_date(query['date'])
+        #     if query['model'] == 'Dx':
+        #         dx_date = query['date']
+        #
+        #     if query['model'] == 'Lab' or query['model'] == 'Px':
+        #         if current_date != compared_date and not before_lab:
+        #             before_lab = True
+        #             if prev_dx_date != dx_date:
+        #                 current_date = compared_date
+        #                 self.add_event_column(date=dx_date, event_num=event, important=False)
+        #                 event += 1
+        #                 prev_dx_date = dx_date
+        #     else:
+        #         if before_lab:
+        #             current_date = compared_date
+        #             before_lab = False
+        #         else:
+        #             if current_date != compared_date:
+        #                 if prev_dx_date != dx_date:
+        #                     current_date = compared_date
+        #                     self.add_event_column(date=dx_date, event_num=event, important=False)
+        #                     event += 1
+        #                     prev_dx_date = dx_date
 
     @staticmethod
     def init_date(date):
@@ -75,13 +88,13 @@ class Rule:
     def create_important_event(self):
         event_queries = self.get_event_queries()
         cur_event = Important(0)
+        prev_date = None
 
         for i, event_query in enumerate(event_queries):
             event_num = event_query['event_num']
             cur_date = event_query['date']
             cur_event.event_date = cur_date
-            information_queries = self.__get_all_queries_by_date(cur_date)
-
+            information_queries = self.__get_all_queries_by_date(cur_date, prev_date)
             for information_query in information_queries:
                 if information_query['model'] == 'Lab' and information_query['test_name'] in Condition.l_condition_dict.keys():
                     cur_event.l_name.append(information_query['test_name'])
@@ -93,16 +106,30 @@ class Rule:
             cur_event.is_important()
             self.important_list.append(cur_event)
 
+            prev_date = cur_date
             cur_event = Important(event_num+1, cur_event)
 
-    def __get_all_queries_by_date(self, date: datetime) -> list:
+    def __get_all_queries_by_date(self, date: datetime, prev_date: datetime) -> list:
         result_query = []
         for model_name, model in self.model_dict.items():
-            queries = model.objects.all().values()
-            for query in queries:
-                if self.init_date(query['date']) == self.init_date(date):
-                    self.__add_model_name_in_query(model_name, query)
-                    result_query.append(query)
+            queries = model.objects.filter(number=self.__case_number).values()
+
+            if model_name == "Lab" or model_name == "Px":
+                if prev_date is None:
+                    for query in queries:
+                        if self.init_date(query['date']) <= self.init_date(date):
+                            self.__add_model_name_in_query(model_name, query)
+                            result_query.append(query)
+                else:
+                    for query in queries:
+                        if self.init_date(prev_date) < self.init_date(query['date']) <= self.init_date(date):
+                            self.__add_model_name_in_query(model_name, query)
+                            result_query.append(query)
+            else:
+                for query in queries:
+                    if self.init_date(query['date']) == self.init_date(date):
+                        self.__add_model_name_in_query(model_name, query)
+                        result_query.append(query)
         return result_query
 
     def insert_important_event_table(self):
@@ -149,11 +176,12 @@ class Important:
                     result = self.l_result[i]
                     for exception in except_list:
                         result = result.replace(exception, "")
-                    result = float(result)
-                    if (result < l_condition_dict[name][1][0]) or \
-                            (result > l_condition_dict[name][1][1]):
-                        self.important = True
-                        local_important = True
+                    if result.isnumeric():
+                        result = float(result)
+                        if (result < l_condition_dict[name][1][0]) or \
+                                (result > l_condition_dict[name][1][1]):
+                            self.important = True
+                            local_important = True
                 if local_important:
                     self.important_l += name + " " + self.l_result[i] + "\n"
                     local_important = False
