@@ -2,6 +2,7 @@ from manager.models import Dx, Fx, Lab, Med, Px, Event
 from django.forms.models import model_to_dict
 import datetime
 
+
 class Rule:
     def __init__(self, case_number: str):
         self.model_dict = {'Dx': Dx, 'Fx': Fx, 'Lab': Lab, 'Med': Med, 'Px': Px}
@@ -106,7 +107,6 @@ class Rule:
             cur_event = Event.objects.filter(number=self.__case_number, date=important.event_date)[0]
             cur_event.important = important.important
             cur_event.save()
-
 
 
 class Important:

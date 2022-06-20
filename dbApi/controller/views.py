@@ -1,9 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .forms import UploadFileForm
 
 from .module.handler import File_Handler, Db_Handler, Db
 from .module.rule import Rule
+
+from manager.models import Event
+import csv
+
 import os
 
 
@@ -34,6 +38,23 @@ def insert_file(request, file_name):
     db_handler.select_file_name(file_name)
     db_handler.insert_db()
     return HttpResponseRedirect('/controller')
+
+def download_event_csv_file(request, case_num):
+    response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename="important.csv"'},
+    )
+
+    writer = csv.writer(response)
+
+    events = Event.objects.filter(number="Case "+str(case_num))
+
+    for event in events:
+        row = [event.date, event.event_num, event.important]
+        writer.writerow(row)
+
+    return response
+
 
 
 def event(request):
