@@ -284,7 +284,7 @@ def total_data(request, case_num: int):
     for event in events:
         date = event.date
         if str(date) not in result_dict:
-            result_dict['event_dates'].append(str(date))
+            result_dict['event_dates'].append(str(date).split(" ")[0])
 
         separate_dict = {'dx': [], 'lab': [], 'med': [], 'firsts': [], 'afters': [], 'important': event.important}
 
@@ -325,9 +325,9 @@ def total_data(request, case_num: int):
                 'med_name_ingr': med.name_ingredient,
                 'med_name_norm': med.name_normal,
                 'med_unit': med.prescript_unit,
-                'dosage': med.prescription_by_time,
-                'duration': med.prescription,
-
+                'dosage': med.prescription,
+                'number_of_doses_per_day': med.prescription_by_time.split("*")[1] if "*" in med.prescription_by_time else "0",
+                'drug_name': med.name_normal.split(" ")[0]
             }
             separate_dict['med'].append(med_dict)
 
@@ -341,7 +341,7 @@ def total_data(request, case_num: int):
 
 
         prev_date = date
-        result_dict['events'][str(date)] = separate_dict
+        result_dict['events'][str(date).split(" ")[0]] = separate_dict
 
     return JsonResponse(result_dict)
 
